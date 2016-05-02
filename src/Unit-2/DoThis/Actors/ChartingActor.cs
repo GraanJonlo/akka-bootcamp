@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms.DataVisualization.Charting;
 using Akka.Actor;
@@ -8,8 +7,6 @@ namespace ChartApp.Actors
 {
     public class ChartingActor : UntypedActor
     {
-        #region Messages
-
         public class InitializeChart
         {
             public InitializeChart(Dictionary<string, Series> initialSeries)
@@ -19,8 +16,6 @@ namespace ChartApp.Actors
 
             public Dictionary<string, Series> InitialSeries { get; private set; }
         }
-
-        #endregion
 
         private readonly Chart _chart;
         private Dictionary<string, Series> _seriesIndex;
@@ -39,12 +34,10 @@ namespace ChartApp.Actors
         {
             if (message is InitializeChart)
             {
-                var ic = message as InitializeChart;
+                var ic = (InitializeChart) message;
                 HandleInitialize(ic);
             }
         }
-
-        #region Individual Message Type Handlers
 
         private void HandleInitialize(InitializeChart ic)
         {
@@ -68,7 +61,5 @@ namespace ChartApp.Actors
                 }
             }
         }
-
-        #endregion
     }
 }

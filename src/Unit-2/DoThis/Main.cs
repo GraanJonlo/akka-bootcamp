@@ -18,15 +18,13 @@ namespace ChartApp
             InitializeComponent();
         }
 
-        #region Initialization
-
 
         private void Main_Load(object sender, EventArgs e)
         {
             _chartActor = Program.ChartActors.ActorOf(Props.Create(() => new ChartingActor(sysChart)), "charting");
             var series = ChartDataHelper.RandomSeries("FakeSeries" + _seriesCounter.GetAndIncrement());
-            _chartActor.Tell(new ChartingActor.InitializeChart(new Dictionary<string, Series>()
-            {
+            _chartActor.Tell(new ChartingActor.InitializeChart(new Dictionary<string, Series>
+                                                               {
                 {series.Name, series}
             }));
         }
@@ -37,9 +35,7 @@ namespace ChartApp
             _chartActor.Tell(PoisonPill.Instance);
 
             //shut down the ActorSystem
-            Program.ChartActors.Shutdown();
+            Program.ChartActors.Terminate();
         }
-
-        #endregion
     }
 }
