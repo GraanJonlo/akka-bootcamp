@@ -37,5 +37,11 @@ namespace ChartApp
             //shut down the ActorSystem
             Program.ChartActors.Terminate();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var series = ChartDataHelper.RandomSeries("FakeSeries" + _seriesCounter.GetAndIncrement());
+            _chartActor.Tell(new ChartingActor.AddSeries(series));
+        }
     }
 }
